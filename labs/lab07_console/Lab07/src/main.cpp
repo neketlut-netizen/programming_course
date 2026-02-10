@@ -1,5 +1,6 @@
 #include <iostream>
 #include <math.h>
+#include <stdio.h>
 // Lab 07
 // TODO: реализуйте решение по заданию в labs/lab07_console/README.md
 //
@@ -18,11 +19,13 @@ int main() {
     if (!(std::cin >> x0) || (x0 <= 0) || (x0 >= 4)) {
         return 0;
     }
-    
+
+    std::cout << "1" << " " << sin(x0) / x0 << std::endl;
+
     score = (4 - x0) / 10;
- 
+    
     //Инициализатор, Условие, Итерация
-    for (int i = 1; i != 11; i++)
+    for (int i = 2; i != 12; i++)
     {
         x0 = x0 + score;
         std::cout << i << " " << sin(x0) / x0 << std::endl;
@@ -62,7 +65,27 @@ int main() {
     // TODO: вычислите N и S (S <= MAX) и выведите результаты.
 
 
+// 3 Задание
+    int countcent = 1, timer;
+    double summa, cent, r, somecent, nextcent, nextpay;
+    if (scanf_s("%lf %d %lf", &summa, &timer, &cent) != 3) {
+        return 0;
+    }
 
+    r = cent / (12 * 100); // Процентная ставка
+    somecent = summa / timer; //доля основного процента
+    
+    nextcent = summa * r; //проценты любого долга
+    nextpay = somecent + nextcent; //любой платёж
+
+    printf("%d %lf %lf %lf\n", countcent, summa, nextcent, nextpay);
+    while (countcent != timer) {
+        summa = summa - somecent;
+        nextcent = summa * r;
+        nextpay = somecent + nextcent;
+        countcent++;
+        printf("%d %lf %lf %lf\n", countcent, summa, nextcent, nextpay);
+    }
 
 
 
