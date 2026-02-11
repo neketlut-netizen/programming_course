@@ -1,6 +1,5 @@
 #include <iostream>
 #include <math.h>
-#include <stdio.h>
 // Lab 07
 // TODO: реализуйте решение по заданию в labs/lab07_console/README.md
 //
@@ -30,11 +29,6 @@ int main() {
         x0 = x0 + score;
         std::cout << i << " " << sin(x0) / x0 << std::endl;
     }
-
-    // dfdfdf
-    // // dfd/df
-    // /dfdfd
-    // TODO: вычислите и выведите 10 значений функции на (0, 4].
 
 
     // Задание 2: сумма чисел Фибоначчи.
