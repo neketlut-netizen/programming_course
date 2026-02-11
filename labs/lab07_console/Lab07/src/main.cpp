@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <math.h>
 // Lab 07
@@ -38,12 +39,12 @@ int main() {
     long long start = 0;
     long long next = 1;
     long long time = 0;
-    int count = 1;
+    int count = 0;
     if (!(std::cin >> max_value)) {
         return 0;
     }
 
-    while (s < max_value)
+    while (s <= max_value)
     {
         time = next;
         next = next + start;
@@ -51,9 +52,8 @@ int main() {
         count++;
         s = s + start;
     }
-
-    if (s == max_value) {std::cout << count << " " << s << std::endl;}
-    else {std::cout << count-1 << " " << s-start << std::endl;}
+    
+    {std::cout << count << " " << s << std::endl;}
 
 
     // TODO: вычислите N и S (S <= MAX) и выведите результаты.
@@ -62,7 +62,7 @@ int main() {
 // 3 Задание
     int countcent = 1, timer;
     double summa, cent, r, somecent, nextcent, nextpay;
-    if (scanf_s("%lf %d %lf", &summa, &timer, &cent) != 3) {
+    if (scanf("%lf %d %lf", &summa, &timer, &cent) != 3) {
         return 0;
     }
 
