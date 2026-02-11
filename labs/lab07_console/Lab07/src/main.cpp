@@ -15,7 +15,7 @@ int main() {
     // Ввод: x0 — начальная точка интервала.
     double score;
     double x0 = 0.0;
-    // проверка на идиота
+    // проверка на дурака
     if (!(std::cin >> x0) || (x0 <= 0) || (x0 >= 4)) {
         return 0;
     }
@@ -39,21 +39,22 @@ int main() {
     long long start = 0;
     long long next = 1;
     long long time = 0;
-    int count = 0;
+    int count = 1;
     if (!(std::cin >> max_value)) {
         return 0;
     }
 
-    while (s <= max_value)
+    while (s < max_value)
     {
         time = next;
         next = next + start;
         start = time;
         count++;
         s = s + start;
+        std::cout << count << " " << start << " " << next << std::endl;
     }
     
-    {std::cout << count << " " << s << std::endl;}
+    std::cout << count << " " << s << std::endl;
 
 
     // TODO: вычислите N и S (S <= MAX) и выведите результаты.
