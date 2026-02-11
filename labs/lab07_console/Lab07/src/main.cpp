@@ -51,7 +51,6 @@ int main() {
         start = time;
         count++;
         s = s + start;
-        std::cout << count << " " << start << " " << next << std::endl;
     }
     
     std::cout << count << " " << s << std::endl;
