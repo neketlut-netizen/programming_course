@@ -1,4 +1,6 @@
 #include <iostream>
+#include <math.h>
+#include <cstdlib>
 
 // Lab 08
 // TODO: реализуйте решение по заданию в labs/lab08_pointers_arrays/README.md
@@ -16,8 +18,79 @@ int main() {
 
     // Упражнение 3: заполнить массивы (10 элементов) разными способами.
     // TODO: реализуйте 4 варианта заполнения и выведите 10 значений для каждого.
+    int END=0;
+    int stat1[10]{};
+    int stat2[10]{};
+    int *din1;
+    int *din2;
+    int* s2;
+    int* d2;
+
+    din1 = new int[10];
+    din2 = new int[10];
+
+    // Индексная алресация
+    for (int i = 0; i != 10; i++)
+    {
+        stat1[i] = i * i;
+        din1[i] = i * i;
+    }
+
+    // Косвенная адресация
+    s2 = stat2;
+    d2 = din2;
+    for  (int i=0; i != 10; i++)
+    {
+        *d2 = i * i;
+        *s2 = i * i;
+        d2 += 1;
+        s2 += 1;
+    }
+    d2 = din2;
+    s2 = stat2;
+    
+
+    for (int i = 0; i < 10; i++)
+    {
+        std::cout << stat1[i] << " ";
+    }
+    std::cout << std::endl;
+
+    
+    for (int i = 0; i < 10; i++)
+    {
+        std::cout << *s2 << " ";
+        s2 += 1;
+    }
+    std::cout << std::endl;
+
+
+    for (int i = 0; i < 10; i++)
+    {
+        std::cout << din1[i] << " ";
+    }
+    std::cout << std::endl;
+
+
+    for (int i = 0; i < 10; i++)
+    {
+        std::cout << *d2 << " ";
+        d2 += 1;
+    }
+    std::cout << std::endl;
+
+    ///3.2
+    int* dinamic1;
+    int* dinamic2;
+
 
     // Упражнение 4: линейный самоадресуемый список из 10 элементов.
     // TODO: сформируйте список и выведите элементы по порядку.
+    
+    
+    
+    
+    
+    
     return 0;
 }
