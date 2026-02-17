@@ -1,6 +1,40 @@
 #include <iostream>
 #include <math.h>
 #include <cstdlib>
+#include <ctime>
+
+// алгоритм вставками
+void sortArray(int* arr, int size) {
+    for (int i = 1; i < size; i++) {
+        for (int temp_index = i; ((temp_index > 0) && (arr[temp_index] < arr[temp_index - 1])); temp_index--) {
+            int temp = arr[temp_index];
+            arr[temp_index] = arr[temp_index - 1];
+            arr[temp_index - 1] = temp;
+        }
+    }
+}
+
+int* Merge(int* arr1, int* arr2, int size1, int size2) {
+    int i = 0, j = 0, k = 0, size3 = size1+size2;
+    int* Res;
+    Res = new int[size3];
+
+    while (i < size1 && j < size2) {
+        if (arr1[i] < arr2[j]) {
+            Res[k++] = arr1[i++];
+        }
+        else {
+            Res[k++] = arr2[j++];
+        }
+    }
+
+    while (i < size1) { Res[k++] = arr1[i++]; }
+    while (j < size2) { Res[k++] = arr2[j++]; }
+
+    return Res;
+
+
+}
 
 // Lab 08
 // TODO: реализуйте решение по заданию в labs/lab08_pointers_arrays/README.md
@@ -10,6 +44,7 @@
 // - числа через пробел
 // - если несколько строк — в фиксированном порядке
 int main() {
+    srand(time(NULL));
     // Упражнение 1: объяснить использование типов/переменных в коде (без ввода).
     // TODO: при необходимости вывести пояснения/результаты.
 
@@ -82,7 +117,40 @@ int main() {
     ///3.2
     int* dinamic1;
     int* dinamic2;
+    int* dinamicRes;
+    int a, b;
 
+    if (!(std::cin >> a >> b) || (a > 15) || (b > 15)) {
+        return 0;
+    }
+
+    dinamic1 = new int[a];
+    dinamic2 = new int[b];
+    
+    for (int i = 0; i < a; i++) {dinamic1[i] = (rand() % (355 + 355 + 1)) - 355;
+        std::cout << dinamic1[i] << " ";}
+    std::cout << std::endl;
+    for (int i = 0; i < b; i++) {dinamic2[i] = (rand() % (355 + 355 + 1)) - 355;
+        std::cout << dinamic2[i] << " ";}
+    std::cout << std::endl << std::endl;
+
+    sortArray(dinamic1, a);
+    sortArray(dinamic2, b);
+
+    for (int i = 0; i < a; i++) {
+        std::cout << dinamic1[i] << " ";
+    }
+    std::cout << std::endl;
+    for (int i = 0; i < b; i++) {
+        std::cout << dinamic2[i] << " ";
+    }
+    std::cout << std::endl << std::endl;
+
+    dinamicRes = Merge(dinamic1, dinamic2, a, b);
+    
+    for (int i = 0; i < a+b; i++) {
+        std::cout << dinamicRes[i] << " ";
+    }
 
     // Упражнение 4: линейный самоадресуемый список из 10 элементов.
     // TODO: сформируйте список и выведите элементы по порядку.
