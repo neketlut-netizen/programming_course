@@ -3,6 +3,13 @@
 #include <cstdlib>
 #include <ctime>
 
+struct List {
+    int data;
+    List* prev;
+    List* next;
+};
+
+
 // алгоритм вставками
 void sortArray(int* arr, int size) {
     for (int i = 1; i < size; i++) {
@@ -47,13 +54,21 @@ int main() {
     srand(time(NULL));
     // Упражнение 1: объяснить использование типов/переменных в коде (без ввода).
     // TODO: при необходимости вывести пояснения/результаты.
+    
+    /*а(глобальная) = 100; а(лок.) = 3.14; а(цикл) = 0, 1, 2, ..., N.
+     d(main) =123; t(main)=456 l(main)=0->10   
+     argc(счётчик элементов); _TCHAR* argv[](массив аргументов).... argc = 4 -> argv[0] = "myprogram.exe"; argv[1] = "file.txt"...
+     n=53.14 m = 456
+    */
 
     // Упражнение 2: найти ошибки в коде (без ввода).
     // TODO: при необходимости вывести пояснения/результаты.
 
+    
+
+
     // Упражнение 3: заполнить массивы (10 элементов) разными способами.
     // TODO: реализуйте 4 варианта заполнения и выведите 10 значений для каждого.
-    int END=0;
     int stat1[10]{};
     int stat2[10]{};
     int *din1;
@@ -114,6 +129,8 @@ int main() {
     }
     std::cout << std::endl;
 
+    delete[]din1; delete[]din2; 
+
     ///3.2
     int* dinamic1;
     int* dinamic2;
@@ -127,11 +144,10 @@ int main() {
     dinamic1 = new int[a];
     dinamic2 = new int[b];
     
-    for (int i = 0; i < a; i++) {dinamic1[i] = (rand() % (355 + 355 + 1)) - 355;
-        std::cout << dinamic1[i] << " ";}
+    for (int i = 0; i < a; i++) {dinamic1[i] = (rand() % (355 + 355 + 1)) - 355;}
     std::cout << std::endl;
-    for (int i = 0; i < b; i++) {dinamic2[i] = (rand() % (355 + 355 + 1)) - 355;
-        std::cout << dinamic2[i] << " ";}
+
+    for (int i = 0; i < b; i++) {dinamic2[i] = (rand() % (355 + 355 + 1)) - 355;}
     std::cout << std::endl << std::endl;
 
     sortArray(dinamic1, a);
@@ -151,14 +167,43 @@ int main() {
     for (int i = 0; i < a+b; i++) {
         std::cout << dinamicRes[i] << " ";
     }
+    std::cout << std::endl <<std::endl;
+    delete[]dinamic1; delete[]dinamic2; delete[]dinamicRes;
 
     // Упражнение 4: линейный самоадресуемый список из 10 элементов.
     // TODO: сформируйте список и выведите элементы по порядку.
     
+    List* head = nullptr; 
+    List* tail = nullptr;
     
+    for (int i = 1; i != 11; i++) {
+        List* newList = new List;
+        newList->data = i;
+        newList->prev = nullptr;
+        newList->next = nullptr;
     
-    
-    
+        if (head == nullptr) {
+            head = newList;
+        }
+        else {
+            tail->next = newList;
+            newList->prev = tail;
+        }
+        tail = newList;
+    }
+
+    List* answer = head;
+    while (answer != nullptr) {
+        std::cout << answer->data << " ";
+        answer = answer->next;
+    }
+    std::cout << std::endl;
+
+    answer = tail;
+    while (answer != nullptr) {
+        std::cout << answer->data << " ";
+        answer = answer->prev;
+    }
     
     return 0;
 }
