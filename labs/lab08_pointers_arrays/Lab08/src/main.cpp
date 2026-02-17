@@ -77,36 +77,12 @@ int main() {
         std::cout << *d2 << " ";
         d2 += 1;
     }
-    std::cout << std::endl << std::endl;
-    
+    std::cout << std::endl;
+
     ///3.2
     int* dinamic1;
     int* dinamic2;
-    int* dinamictemp;
-    int a, b;
 
-    if (!(std::cin >> a >> b) || (a <= 15) || (b <= 15)) {
-        return 0;
-    }
-
-    dinamic1 = new int[a];
-    dinamic2 = new int[b];
-    dinamictemp = new int[a];
-
-    for (int i = 0; i != a; i++)
-    {
-        dinamic1[i] = (rand() % (355 + 355 + 1)) - 355;
-    }
-    for (int i = 0; i != b; i++)
-    {
-        dinamic2[i] = (rand() % (355 + 355 + 1)) - 355;
-    }
-
-
-
-
-
-    
 
     // Упражнение 4: линейный самоадресуемый список из 10 элементов.
     // TODO: сформируйте список и выведите элементы по порядку.
