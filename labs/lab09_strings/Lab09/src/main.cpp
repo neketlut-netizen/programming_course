@@ -41,7 +41,7 @@ int main() {
     std::string s3;
 
 
-    std::cout << "4.length()\n" << s1.length() << "\n" << s2.length() << "\n\n"; //подсчёт символов
+    std::cout << "4.length()\n4.1 " << s1.length() << "\n4.2 " << s2.length() << "\n\n"; //подсчёт символов
 
     //добавление в первую строку, вторую строку
     std::cout << "5.append\n";
@@ -57,16 +57,37 @@ int main() {
 
     // Упражнение 4: ввод количества слов и самих слов.
     int word_count = 0;
-    if (!(std::cin >> word_count)) {
+    if (!(std::cin >> word_count) || word_count>20 || word_count<=0) {
         return 0;
     }
 
+    char words1[20][11];
+
     std::vector<std::string> words;
     words.reserve(word_count);
+
     for (int i = 0; i < word_count; ++i) {
         std::string word;
         std::cin >> word;
+
+        if (word.length() > 10) {
+            word = word.substr(0, 10);
+        }
+
+        strcpy(words1[i], word.c_str());
         words.push_back(word);
+    }
+    
+    std::cout << "\n";
+
+    for (int i = 0; i < word_count; i += 2) {
+        std::cout << "1." << i << ". " << words1[i] << std::endl;
+    }
+
+    std::cout << "\n";
+
+        for (int i = 0; i < word_count; i += 2) {
+        std::cout << "2." << i << ". " << words[i] << std::endl;
     }
 
     // TODO: выведите слова с четными номерами (2, 4, 6, ...), по одному в строке.
