@@ -39,8 +39,6 @@ int* Merge(int* arr1, int* arr2, int size1, int size2) {
     while (j < size2) { Res[k++] = arr2[j++]; }
 
     return Res;
-
-
 }
 
 // Lab 08
@@ -58,7 +56,7 @@ int main() {
     /*а(глобальная) = 100; а(лок.) = 3.14; а(цикл) = 0, 1, 2, ..., N.
      d(main) =123; t(main)=456 l(main)=0->10   
      argc(счётчик элементов); _TCHAR* argv[](массив аргументов).... argc = 4 -> argv[0] = "myprogram.exe"; argv[1] = "file.txt"...
-     n=53.14 m = 456
+     n=53.14 m = 456.0
     */
 
     // Упражнение 2: найти ошибки в коде (без ввода).
