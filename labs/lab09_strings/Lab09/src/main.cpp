@@ -61,9 +61,9 @@ int main() {
         return 0;
     }
 
-    char words1[20][11];
+    char words1[20][11]; //двумерный массив
 
-    std::vector<std::string> words;
+    std::vector<std::string> words; //дин. массив
     words.reserve(word_count);
 
     for (int i = 0; i < word_count; ++i) {
@@ -74,7 +74,7 @@ int main() {
             word = word.substr(0, 10);
         }
 
-        strcpy(words1[i], word.c_str());
+        strcpy(words1[i], word.c_str()); //из str в "массив символов"
         words.push_back(word);
     }
     
