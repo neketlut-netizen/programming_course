@@ -3,6 +3,7 @@
 #include <string>
 #include <cstring>
 #include <vector>
+#include <algorithm>
 
 
 // Lab 09
@@ -66,9 +67,14 @@ int main() {
     std::vector<std::string> words; //дин. массив
     words.reserve(word_count);
 
+
+    std::cin.ignore();
     for (int i = 0; i < word_count; ++i) {
         std::string word;
-        std::cin >> word;
+        if (!(getline(std::cin, word))) {  
+            return 0;
+        }
+        
 
         if (word.length() > 10) {
             word = word.substr(0, 10);
@@ -78,6 +84,8 @@ int main() {
         words.push_back(word);
     }
     
+   
+
     std::cout << "\n";
 
     for (int i = 0; i < word_count; i += 2) {
