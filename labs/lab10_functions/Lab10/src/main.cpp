@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-
+// №1 1. ссылкой 2. указатель ссылки
 // алгоритм вставками 
 void sortArray(int* arr, int size) {
     for (int i = 1; i < size; i++) {
@@ -26,7 +26,7 @@ void PackArr(int* base_arr, int size, int* second_arr) {
     }
 }
 
-void UnpackArr(int* base_arr, int size, int* second_arr){
+void UnpackArr(int* base_arr, int* second_arr){
     long long pos = 0;
     for (int i = 0; i < 18; i++) {
         while (second_arr[i] > 0) {
@@ -63,7 +63,7 @@ int main() {
     array1 = new int[size];
 
 
-    UnpackArr(array1, size, array2);
+    UnpackArr(array1, array2);
 
     
     PackArr(array1, size, CheckArr);
