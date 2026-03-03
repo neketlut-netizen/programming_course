@@ -1,6 +1,8 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+
 // №1 1. ссылкой 2. указатель ссылки
 // алгоритм вставками 
 void sortArray(int* arr, int size) {
@@ -42,7 +44,9 @@ int main() {
     srand(time(NULL));
     
     long long size;
+    bool check;
     int array2[18]{0};
+    int array2copy[18]{0};
     int CheckArr[18]{0};
 
     size = 1500 + (rand() % (2000 - 1500 + 1));
@@ -62,6 +66,9 @@ int main() {
     delete[]array1;
     array1 = new int[size];
 
+    for (int i = 0; i < 18; i++) {
+        array2copy[i] = array2[i];
+    }
 
     UnpackArr(array1, array2);
 
@@ -71,6 +78,20 @@ int main() {
         std::cout << CheckArr[i] << " ";
     }
     delete[]array1;
+
+
+    check = true;
+    for (int i = 0; i < 18; i++) {
+        if (CheckArr[i] != array2copy[i]) {
+            check = false;
+        }
+    }
+
+    if (check == true) {
+        std::cout << "\nAll is good";
+    }
+
+    
 
     return 0;
 }
