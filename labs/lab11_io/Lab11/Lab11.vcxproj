@@ -71,6 +71,11 @@
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\..\..\..\..\..\OneDrive\Desktop\лаба 11\input.txt" />
+    <Text Include="..\..\..\..\..\..\..\OneDrive\Desktop\лаба 11\output1.txt" />
+    <Text Include="..\..\..\..\..\..\..\OneDrive\Desktop\лаба 11\output2.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
 </Project>
