@@ -27,10 +27,8 @@ int main() {
     }
 
     // пока не конец файла
-    while (!feof(fin) and wordCount < 50) {
-        if (fscanf(fin, "%25s", words[wordCount]) == 1) {
+    while (wordCount < 50 and (fscanf(fin, "%25s", words[wordCount]) == 1)) {
             wordCount++;
-        }
     }
     fclose(fin);
 
