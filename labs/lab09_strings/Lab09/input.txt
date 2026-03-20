@@ -1,0 +1,8 @@
+head голова
+nice круто
+yes да
+no нет
+hello привет
+world мир
+shadow тень
+demon демон

@@ -101,3 +101,112 @@ int main() {
     // TODO: выведите слова с четными номерами (2, 4, 6, ...), по одному в строке.
     return 0;
 }
+
+
+/*
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <cstdio>
+#include <vector>
+#include <string>
+#include <Windows.h>
+
+
+
+
+int main() {
+    std::vector<std::string> Rus;
+    std::vector<std::string> Eng;
+
+    SetConsoleCP(65001);
+    SetConsoleOutputCP(65001);
+
+    FILE* file = fopen("input.txt", "r");
+    if (file == NULL) {
+        printf("ERROR with [input] file\n");
+        return 0;
+    }
+
+    char buffer1[100];
+    char buffer2[100];
+    
+    while (fscanf(file, "%99s %99s", buffer1, buffer2) == 2) {
+        Rus.push_back(buffer1);
+        Eng.push_back(buffer2);
+    }
+    
+    
+    fclose(file);
+    
+    
+    std::string command, target;
+    
+
+    
+    //начало программы:
+    while (std::cin >> command) {
+        if (command == "EXIT") {
+            break;
+        }
+
+        // Добавление
+        if (command == "ADD") {
+            std::string word, translation;
+            
+            if (std::cin >> word >> translation) {
+                Rus.push_back(word);
+                Eng.push_back(translation);
+                FILE* file_app = fopen("input.txt", "a");
+
+                if (file_app != NULL) {
+                    fprintf(file_app, "\n%s %s", word.c_str(), translation.c_str());
+                    fclose(file_app);
+                    std::cout << "OK" << std::endl;
+                }
+                
+                else {
+                    std::cout << "FILE_ERROR" << std::endl;
+                }
+            }
+        }
+
+
+
+
+        // Перевод
+        if (command == "TRANSLATE") {
+            if (!(std::cin >> target)) break;
+            
+            bool found = false;
+
+            //1. для Ru->Eng
+            for (size_t i = 0; i < Rus.size(); i++) {
+                if (Rus[i] == target) {
+                    std::cout << "TRANSLATION " << Eng[i] << std::endl;
+                    found = true;
+                    break;
+                }
+            }
+
+            //2. для Eng->Ru        
+            if (!found) {
+                for (size_t i = 0; i < Eng.size(); i++) {
+                    if (Eng[i] == target) {
+                        std::cout << "TRANSLATION " << Rus[i] << std::endl;
+                        found = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!found) {
+                std::cout << "NOT_FOUND" << std::endl;
+            }
+        }
+    }
+
+
+
+
+    return 0;
+}*/
