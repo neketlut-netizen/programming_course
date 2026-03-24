@@ -5,11 +5,11 @@ int count1 = 0;
 int count2 = 0;
 
 // 1 в лоб column - столбец row - строка
-void print(int** board, int k) {
+void printMatrix(int** boardMatrix, int k) {
     std::cout << "[";
     for (int i = 0; i < k; i++) {
         for (int j = 0; j < k; j++) {
-            if (board[i][j] == 1) {
+            if (boardMatrix[i][j] == 1) {
                 std::cout << j + 1;
                 if (i < k - 1) { std::cout << ","; }
                 break;
@@ -19,7 +19,7 @@ void print(int** board, int k) {
     std::cout << "]" << std::endl;
 }
 
-void print2(int* pos, int k) {
+void printOpt(int* pos, int k) {
     std::cout << "[";
     for (int i = 0; i < k; i++) {
         std::cout << pos[i] + 1;
@@ -49,7 +49,7 @@ bool isSafe(int** board1, int row, int col, int k) {
 void Matrix(int** board1, int row, int k) {
     if (row == k) {
         count1++;
-        print(board1, k);
+        printMatrix(board1, k);
         return;
     }
 
@@ -63,7 +63,7 @@ void Matrix(int** board1, int row, int k) {
 }
 
 //___________________________________________________________________________________________________________________
-bool SafeOpt(int* pos, int row, int col) {
+bool isSafeOpt(int* pos, int row, int col) {
     for (int i = 0; i < row; i++) {
         if (pos[i] == col or abs(pos[i] - col) == abs(row - i)) {
             return false;
@@ -72,18 +72,18 @@ bool SafeOpt(int* pos, int row, int col) {
     return true;
 }
 
-void slove(int* pos, int row, int k) {
+void solveOpt(int* pos, int row, int k) {
     if (row == k) {
         count2++;
-        print2(pos, k);
-        std::cout << std::endl;
+        printOpt(pos, k);
+        printf("\n");
         return;
     }
 
     for (int col = 0; col < k; col++) {
-        if (SafeOpt(pos, row, col)) {
+        if (isSafeOpt(pos, row, col)) {
             pos[row] = col;
-            slove(pos, row + 1, k);
+            solveOpt(pos, row + 1, k);
         }
     }
 }
@@ -109,8 +109,10 @@ int main() {
     Matrix(board1, 0, k);
     std::cout << count1 << std::endl;
 
-    slove(board2, 0, k);
+    solveOpt(board2, 0, k);
     std::cout << count2 << std::endl;
+
+
 
     return 0;
 }
