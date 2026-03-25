@@ -26,6 +26,7 @@ void printOpt(int* pos, int k) {
         if (i < k - 1) std::cout << ",";
     }
     std::cout << "]";
+    printf("\n");
 }
 
 //________________________________________________________________________________________________________________________
@@ -46,7 +47,7 @@ bool isSafe(int** board1, int row, int col, int k) {
     return true;
 }
 
-void Matrix(int** board1, int row, int k) {
+void ChessMatrix(int** board1, int row, int k) {
     if (row == k) {
         count1++;
         printMatrix(board1, k);
@@ -56,7 +57,7 @@ void Matrix(int** board1, int row, int k) {
     for (int col = 0; col < k; col++) {
         if (isSafe(board1, row, col, k)) {
             board1[row][col] = 1;
-            Matrix(board1, row + 1, k);
+            ChessMatrix(board1, row + 1, k);
             board1[row][col] = 0;
         }
     }
@@ -72,22 +73,22 @@ bool isSafeOpt(int* pos, int row, int col) {
     return true;
 }
 
-void solveOpt(int* pos, int row, int k) {
+void ChessOpt(int* pos, int row, int k) {
     if (row == k) {
         count2++;
         printOpt(pos, k);
-        printf("\n");
         return;
     }
 
     for (int col = 0; col < k; col++) {
         if (isSafeOpt(pos, row, col)) {
             pos[row] = col;
-            solveOpt(pos, row + 1, k);
+            ChessOpt(pos, row + 1, k);
         }
     }
 }
 
+//_____________________________________________________________________________________________________________________
 int main() {
     int k;
     std::cin >> k;
@@ -106,10 +107,10 @@ int main() {
 
     int* board2 = new int[k];
 
-    Matrix(board1, 0, k);
+    ChessMatrix(board1, 0, k);
     std::cout << count1 << std::endl;
 
-    solveOpt(board2, 0, k);
+    ChessOpt(board2, 0, k);
     std::cout << count2 << std::endl;
 
 
