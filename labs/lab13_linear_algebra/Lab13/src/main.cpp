@@ -1,7 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
-#include <cstdio>
-#include <string>
 
 int main() {
     int M, N;
@@ -17,8 +15,30 @@ int main() {
         return 0;
     }
 
-    std::cout << M << " " << N;
+    std::cout << M << " " << N << "\n"; //_____________________________________незабудь убрать______________________
 
+
+    //создание двойного массива и заполнение (lf - double)
+    double** matrix = new double* [M]; 
+    for (int i = 0; i < M; i++) {
+        matrix[i] = new double[N + 1];
+    }
+    for (int i = 0; i < M; i++) {
+        for (int j = 0; j <= N; j++) {
+            fscanf(file, "%lf", &matrix[i][j]);
+        }
+    }
+    fclose(file);
+
+
+    for (int i = 0; i < M; i++) {
+        for (int j = 0; j <= N; j++) {
+            printf("%lf ", matrix[i][j]);
+        }
+        printf("\n");
+    }
     
+
+
     return 0;
 }
