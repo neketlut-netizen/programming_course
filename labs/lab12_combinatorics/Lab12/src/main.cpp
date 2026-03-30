@@ -66,7 +66,7 @@ void ChessMatrix(int** board1, int row, int k) {
 //___________________________________________________________________________________________________________________
 bool isSafeOpt(int* pos, int row, int col) {
     for (int i = 0; i < row; i++) {
-        if (pos[i] == col or abs(pos[i] - col) == abs(row - i)) {
+        if (pos[i] == col or abs(pos[i] - col) == abs(row - i)) { //(x1,y1) (x2,y2) => (x1-x2)=(y1-y2)
             return false;
         }
     }

@@ -1,14 +1,24 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
+#include <cstdio>
+#include <string>
 
-// Lab 13
-// TODO: реализуйте решение по заданию в labs/lab13_linear_algebra/README.md
-//
-// Рекомендация по выводу:
-// - без лишнего текста
-// - числа через пробел
-// - если несколько строк — в фиксированном порядке
-//asadasdasd
 int main() {
-    // TODO
+    int M, N;
+
+    FILE* file = fopen("input.txt", "r");
+    if (file == NULL) {
+        printf("ERROR with FILE\n");
+        return 0;
+    }
+    
+    if (fscanf(file, "%d %d", &M, &N) != 2) {
+        fclose(file);
+        return 0;
+    }
+
+    std::cout << M << " " << N;
+
+    
     return 0;
 }
