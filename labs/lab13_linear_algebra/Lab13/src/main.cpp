@@ -3,7 +3,9 @@
 #include <cstdio>
 #include <cmath>
 
-void GaussJordan(double** matrix, int M, int N) {
+double EPS = 1e-9;
+
+void GaussJordan(double** matrix, int M, int N, int* Mass) {
     int Row = 0;
     for (int col = 0; col < N && Row < M; ++col) {
         int Swap_Row = Row;
@@ -12,6 +14,13 @@ void GaussJordan(double** matrix, int M, int N) {
                 Swap_Row = i;
             }
         }
+
+        if (fabs(matrix[Swap_Row][col]) < EPS) {
+            Mass[col] = -1;
+            continue;
+        }
+
+        Mass[col] = Row;
 
         double* temp = matrix[Row];
         matrix[Row] = matrix[Swap_Row];
@@ -51,6 +60,10 @@ int main() {
         return 0;
     }
 
+    int* Mass = new int[N];
+    for (int i = 0; i < N; i++) {
+        Mass[i] = -1;
+    }
 
 
     //создание двойного массива и заполнение (lf - double)
@@ -65,9 +78,78 @@ int main() {
     }
     fclose(file);
 
-    GaussJordan(matrix, M, N);
+    GaussJordan(matrix, M, N, Mass);
 
+    bool Unlucky = false;
+    int Rank = 0;
+    for (int i = 0; i < M; i++) {
+        bool all_0 = true;
+        for (int j = 0; j < N; j++) {
+            if (fabs(matrix[i][j]) > EPS) {
+                all_0 = false;
+                break;
+            }
+        }
+        if (all_0 && (fabs(matrix[i][N]) > EPS)) {
+            Unlucky = true;
+            break;
+        }
+        if (all_0 == false) { 
+            Rank++; 
+        }
+    }
+
+    file = fopen("input.txt", "a");
+    fprintf(file, "\n");
+
+    if (Unlucky == true) {
+        fprintf(file, "Inconsistent system");
+    }
+    else {
+        double* Answer = new double[N];
+        if (Rank < N) {
+            fprintf(file, "free value: ");
+            for (int j = 0; j < N; j++) {
+                if (Mass[j] == -1){
+                    fprintf(file, "x%d, ", j + 1);
+                    Answer[j] = 1.0;
+                }
+            }
+            fprintf(file, "\n");
+        }
+
+
+        for (int j = 0; j < N; j++) {
+            if (Mass[j] != -1) {
+                int r = Mass[j];
+                double val = matrix[r][N];
+
+                for (int k = 0; k < N; k++) {
+                    if (Mass[k] == -1) {
+                        val -= matrix[r][k] * Answer[k];
+                    }
+                }
+                Answer[j] = val;
+            }
+        }
+
+        for (int j = 0; j < N; j++) {
+            double res = Answer[j];
+            if (fabs(res) < EPS) {
+                res = 0.0;
+            }
+            fprintf(file, "x%d=%.3lf; ", j + 1, res);
+        }
+        delete[] Answer;
+    }
     
+    fclose(file);
+
+    for (int i = 0; i < M; i++) {
+        delete[]matrix[i];
+    }
+    delete[]matrix;
+    delete[]Mass;
     
 
 
