@@ -2,20 +2,21 @@
 #include <iostream>
 #include <cstdio>
 #include <cmath>
+#include <ctime>
 
-double EPS = 1e-9;
+double EPS = 1e-9;//10^-9
 
 void GaussJordan(double** matrix, int M, int N, int* Mass) {
     int Row = 0;
     for (int col = 0; col < N && Row < M; ++col) {
         int Swap_Row = Row;
-        for (int i = Row + 1; i < M; ++i) {
+        for (int i = Row + 1; i < M; ++i) { // ищем что ниже
             if (fabs(matrix[i][col]) > fabs(matrix[Swap_Row][col])) {
                 Swap_Row = i;
             }
         }
 
-        if (fabs(matrix[Swap_Row][col]) < EPS) {
+        if (fabs(matrix[Swap_Row][col]) < EPS) {// свободная переменная
             Mass[col] = -1;
             continue;
         }
@@ -34,7 +35,7 @@ void GaussJordan(double** matrix, int M, int N, int* Mass) {
 
         for (int i = 0; i < M; ++i) {
             if (i != Row) {
-                double diffrent = matrix[i][col];
+                double diffrent = matrix[i][col]; //коэфецент
                 for (int j = col; j <= N; ++j) {
                     matrix[i][j] -= diffrent * matrix[Row][j];
                 }
@@ -47,6 +48,7 @@ void GaussJordan(double** matrix, int M, int N, int* Mass) {
 
 
 int main() {
+    srand(time(NULL));
     int M, N;
 
     FILE* file = fopen("input.txt", "r");
@@ -60,7 +62,7 @@ int main() {
         return 0;
     }
 
-    int* Mass = new int[N];
+    int* Mass = new int[N];// хранение индексов строки
     for (int i = 0; i < N; i++) {
         Mass[i] = -1;
     }
@@ -80,7 +82,7 @@ int main() {
 
     GaussJordan(matrix, M, N, Mass);
 
-    bool Unlucky = false;
+    bool Unlucky = false; // флаг
     int Rank = 0;
     for (int i = 0; i < M; i++) {
         bool all_0 = true;
@@ -90,7 +92,8 @@ int main() {
                 break;
             }
         }
-        if (all_0 && (fabs(matrix[i][N]) > EPS)) {
+
+        if (all_0 && (fabs(matrix[i][N]) > EPS)) { // Если в левой части уравнения одни нули, а в правой части не ноль
             Unlucky = true;
             break;
         }
@@ -105,21 +108,19 @@ int main() {
     if (Unlucky == true) {
         fprintf(file, "Inconsistent system");
     }
-    else {
+    else { // Свободные переменные
         double* Answer = new double[N];
         if (Rank < N) {
-            fprintf(file, "free value: ");
             for (int j = 0; j < N; j++) {
                 if (Mass[j] == -1){
-                    fprintf(file, "x%d, ", j + 1);
-                    Answer[j] = 1.0;
+                    Answer[j] = (double)rand() / RAND_MAX;
                 }
             }
             fprintf(file, "\n");
         }
 
 
-        for (int j = 0; j < N; j++) {
+        for (int j = 0; j < N; j++) { // Зависимые перепменные
             if (Mass[j] != -1) {
                 int r = Mass[j];
                 double val = matrix[r][N];
@@ -132,6 +133,7 @@ int main() {
                 Answer[j] = val;
             }
         }
+
 
         for (int j = 0; j < N; j++) {
             double res = Answer[j];
