@@ -105,6 +105,13 @@ int main() {
     file = fopen("input.txt", "a");
     fprintf(file, "\n");
 
+    for (int i = 0; i < M; i++) {
+        for (int j = 0; j <= N; j++) {
+            fprintf(file, "%lf ", matrix[i][j]);
+        }
+        fprintf(file, "\n");
+    }
+
     if (Unlucky == true) {
         fprintf(file, "Inconsistent system");
     }
