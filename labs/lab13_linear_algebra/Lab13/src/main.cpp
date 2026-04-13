@@ -6,6 +6,40 @@
 
 double EPS = 1e-9;//10^-9
 
+void GaussS1mple(double** matrix, int M, int N, int* Mass) {
+    int Row = 0; // текущая строка
+    for (int col = 0; col < N && Row < M; ++col) { // пока не закончиться столбцы переменных или строки
+        int Swap_Row = Row;
+        for (int i = Row + 1; i < M; ++i) { // ищем что ниже
+            if (fabs(matrix[i][col]) > fabs(matrix[Swap_Row][col])) {
+                Swap_Row = i;
+            }
+        }
+
+        if (fabs(matrix[Swap_Row][col]) < EPS) {// свободная переменная
+            Mass[col] = -1;
+            continue;
+        }
+
+        Mass[col] = Row;
+
+        double* temp = matrix[Row];
+        matrix[Row] = matrix[Swap_Row];
+        matrix[Swap_Row] = temp;
+
+
+        for (int i = Row + 1; i < M; ++i) {
+            if (fabs(matrix[i][col]) > EPS) {
+                double diffrent = matrix[i][col] / matrix[Row][col];
+                for (int j = col; j <= N; ++j) {
+                    matrix[i][j] -= diffrent * matrix[Row][j];
+                }
+            }
+        }
+        Row++;
+    }
+}
+
 void GaussJordan(double** matrix, int M, int N, int* Mass) {
     int Row = 0; // текущая строка
     for (int col = 0; col < N && Row < M; ++col) { // пока не закончиться столбцы переменных или строки
@@ -56,7 +90,7 @@ int main() {
         printf("ERROR with FILE\n");
         return 0;
     }
-    
+
     if (fscanf(file, "%d %d", &M, &N) != 2) { // M и N
         fclose(file);
         return 0;
@@ -69,7 +103,7 @@ int main() {
 
 
     //создание двойного массива и заполнение (lf - double)
-    double** matrix = new double* [M]; 
+    double** matrix = new double* [M];
     for (int i = 0; i < M; i++) {
         matrix[i] = new double[N + 1];
     }
@@ -80,10 +114,21 @@ int main() {
     }
     fclose(file);
 
+    //Копия мтарицы
+    double** S1mpleMat = new double* [M];
+    for (int i = 0; i < M; i++) {
+        S1mpleMat[i] = new double[N + 1];
+        for (int j = 0; j <= N; j++) {
+            S1mpleMat[i][j] = matrix[i][j];
+        }
+    }
+    int* MassCopy = new int[N];
+    for (int i = 0; i < N; i++) {
+        MassCopy[i] = -1;
+    }
+
+    GaussS1mple(S1mpleMat, M, N, MassCopy);
     GaussJordan(matrix, M, N, Mass);
-
-
-
 
     bool Unlucky = false; // флаг "Решений"
     int Rank = 0;
@@ -100,8 +145,8 @@ int main() {
             Unlucky = true;
             break;
         }
-        if (all_0 == false) { 
-            Rank++; 
+        if (all_0 == false) {
+            Rank++;
         }
     }
 
@@ -110,7 +155,7 @@ int main() {
 
     for (int i = 0; i < M; i++) {
         for (int j = 0; j <= N; j++) {
-            fprintf(file, "%lf ", matrix[i][j]);
+            fprintf(file, "%.3lf ", S1mpleMat[i][j]);
         }
         fprintf(file, "\n");
     }
@@ -121,11 +166,14 @@ int main() {
     else {
         double* Answer = new double[N];//Итоговый ответ
         if (Rank < N) {
+            fprintf(file, "free value: ");
             for (int j = 0; j < N; j++) {
-                if (Mass[j] == -1){
-                    Answer[j] = 2.0000;
+                if (Mass[j] == -1) {
+                    fprintf(file, "x%d, ", j + 1);
+                    Answer[j] = 2.000;
                 }
             }
+            fprintf(file, "\n");
         }
 
 
@@ -153,15 +201,18 @@ int main() {
         }
         delete[] Answer;
     }
-    
+
     fclose(file);
 
     for (int i = 0; i < M; i++) {
         delete[]matrix[i];
+        delete[]S1mpleMat[i];
     }
+    delete[]S1mpleMat;
     delete[]matrix;
     delete[]Mass;
-    
+    delete[]MassCopy;
+
 
 
     return 0;
