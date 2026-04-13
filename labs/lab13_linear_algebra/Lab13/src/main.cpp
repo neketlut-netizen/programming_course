@@ -123,7 +123,7 @@ int main() {
         if (Rank < N) {
             for (int j = 0; j < N; j++) {
                 if (Mass[j] == -1){
-                    Answer[j] = (double)rand() / RAND_MAX;
+                    Answer[j] = 2.0000;
                 }
             }
         }
