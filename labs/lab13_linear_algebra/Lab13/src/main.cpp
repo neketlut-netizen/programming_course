@@ -7,8 +7,8 @@
 double EPS = 1e-9;//10^-9
 
 void GaussJordan(double** matrix, int M, int N, int* Mass) {
-    int Row = 0;
-    for (int col = 0; col < N && Row < M; ++col) {
+    int Row = 0; // текущая строка
+    for (int col = 0; col < N && Row < M; ++col) { // пока не закончиться столбцы переменных или строки
         int Swap_Row = Row;
         for (int i = Row + 1; i < M; ++i) { // ищем что ниже
             if (fabs(matrix[i][col]) > fabs(matrix[Swap_Row][col])) {
@@ -27,17 +27,17 @@ void GaussJordan(double** matrix, int M, int N, int* Mass) {
         matrix[Row] = matrix[Swap_Row];
         matrix[Swap_Row] = temp;
 
-        double main_val = matrix[Row][col];
+        double main_val = matrix[Row][col]; // значение главного элемента
 
         for (int i = col; i <= N; ++i) {
             matrix[Row][i] /= main_val;
         }
 
         for (int i = 0; i < M; ++i) {
-            if (i != Row) {
-                double diffrent = matrix[i][col]; //коэфецент
+            if (i != Row) { // пропускаем текущую строку
+                double diffrent = matrix[i][col]; //коэфецент для домножения робочей строки
                 for (int j = col; j <= N; ++j) {
-                    matrix[i][j] -= diffrent * matrix[Row][j];
+                    matrix[i][j] -= diffrent * matrix[Row][j]; //0 во всем столбце
                 }
             }
         }
@@ -62,9 +62,9 @@ int main() {
         return 0;
     }
 
-    int* Mass = new int[N];// хранение индексов строки
+    int* Mass = new int[N];// хранение индексов строк базисных переменных
     for (int i = 0; i < N; i++) {
-        Mass[i] = -1;
+        Mass[i] = -1; // все переменные свободные
     }
 
 
@@ -82,7 +82,10 @@ int main() {
 
     GaussJordan(matrix, M, N, Mass);
 
-    bool Unlucky = false; // флаг
+
+
+
+    bool Unlucky = false; // флаг "Решений"
     int Rank = 0;
     for (int i = 0; i < M; i++) {
         bool all_0 = true;
@@ -93,7 +96,7 @@ int main() {
             }
         }
 
-        if (all_0 && (fabs(matrix[i][N]) > EPS)) { // Если в левой части уравнения одни нули, а в правой части не ноль
+        if (all_0 && (fabs(matrix[i][N]) > EPS)) {
             Unlucky = true;
             break;
         }
@@ -115,26 +118,25 @@ int main() {
     if (Unlucky == true) {
         fprintf(file, "Inconsistent system");
     }
-    else { // Свободные переменные
-        double* Answer = new double[N];
+    else {
+        double* Answer = new double[N];//Итоговый ответ
         if (Rank < N) {
             for (int j = 0; j < N; j++) {
                 if (Mass[j] == -1){
                     Answer[j] = (double)rand() / RAND_MAX;
                 }
             }
-            fprintf(file, "\n");
         }
 
 
         for (int j = 0; j < N; j++) { // Зависимые перепменные
             if (Mass[j] != -1) {
-                int r = Mass[j];
+                int r = Mass[j]; //строка ведущей переменной
                 double val = matrix[r][N];
 
                 for (int k = 0; k < N; k++) {
                     if (Mass[k] == -1) {
-                        val -= matrix[r][k] * Answer[k];
+                        val -= matrix[r][k] * Answer[k]; //x1+4*x2=12 -> x1=12-4*x2
                     }
                 }
                 Answer[j] = val;
@@ -142,7 +144,7 @@ int main() {
         }
 
 
-        for (int j = 0; j < N; j++) {
+        for (int j = 0; j < N; j++) {//Выввод
             double res = Answer[j];
             if (fabs(res) < EPS) {
                 res = 0.0;
