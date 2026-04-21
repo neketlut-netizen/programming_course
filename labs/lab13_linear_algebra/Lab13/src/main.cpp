@@ -40,6 +40,7 @@ void GaussS1mple(double** matrix, int M, int N, int* Mass) {
     }
 }
 
+
 void GaussJordan(double** matrix, int M, int N, int* Mass) {
     int Row = 0; // текущая строка
     for (int col = 0; col < N && Row < M; ++col) { // пока не закончиться столбцы переменных или строки
@@ -98,7 +99,7 @@ int main() {
 
     int* Mass = new int[N];// хранение индексов строк базисных переменных
     for (int i = 0; i < N; i++) {
-        Mass[i] = -1; // все переменные свободные
+        Mass[i] = -1;
     }
 
 
@@ -113,6 +114,7 @@ int main() {
         }
     }
     fclose(file);
+
 
     //Копия мтарицы
     double** S1mpleMat = new double* [M];
@@ -130,6 +132,8 @@ int main() {
     GaussS1mple(S1mpleMat, M, N, MassCopy);
     GaussJordan(matrix, M, N, Mass);
 
+    
+    
     bool Unlucky = false; // флаг "Решений"
     int Rank = 0;
     for (int i = 0; i < M; i++) {
@@ -150,6 +154,8 @@ int main() {
         }
     }
 
+
+
     file = fopen("input.txt", "a");
     fprintf(file, "\n");
 
@@ -159,6 +165,10 @@ int main() {
         }
         fprintf(file, "\n");
     }
+
+
+
+
 
     if (Unlucky == true) {
         fprintf(file, "Inconsistent system");
