@@ -3,7 +3,7 @@
 |   | Консольное приложение | Область видимости, указатели | Адресация массивов, список 🔴| Строки | Передача параметров | Гармошка🔴 | Функции. Корневое слово | Иллюстрация 🔴| Задача о ферзях | Приведение к треугольному виду линейных уравнений | Единственное решение 🔴| Общее решение | Представление графов в памяти 🔴 | Генеалогия  | Путешествия  |  Лабиринт  |  Изображение | Шифрование |
 | [Асташова](https://github.com/astashira/programming_course_2)|  |  3| 2 |  |  |  2| . |  7| 11 | .  | **2** | **25** |  |  |  |  |  |  |
 | Еркин|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| [Зырянов](https://github.com/skroolll/programming_course_2)|  | 3 | 2 | 3 | 2| 2 | 8 |7 | 11 | 6 | 2 |  |  |  |  |  |  |  |
+| [Зырянов](https://github.com/skroolll/programming_course_2)|  | 3 | 2 | 3 | 2| 2 | 8 |7 | 11 | 6 | 2 |  |**6**  |  |  |  |  |  |
 | [Ильин](https://github.com/ilin932503/programming_course_2_ilin932503)| |  | 2 |  |  | 2 |  | 7 |  | 6 | 2 |  |  |  |  |  |  |  |
 |[Карташов](https://github.com/Joziazf/programming_course_2)|4 | 3 | 2 |3  | 2 |2  |  | 7 | 11 |  **6**| **2** | **30** |  |  |  |  |  |  |
 |  [Коджебаш](https://github.com/mrbellskiy57/programming_course_2)| 2| 3 | 2 |  |  | 2 |.  | 7 | . | . | **2** |  |  |  |  |  |  |  |
@@ -11,6 +11,6 @@
 |  [Лютенко](https://github.com/neketlut-netizen/programming_course)|4 |  | 2 |  |  2| 2 | 8 |7  | 11 |**6**| **2** | **10** |  |  |  |  |  |  |
 |  [Медведев](https://github.com/dudosa-1/programming_course_2-Medvedev)|2 | 3 | 2 |  | 2 | 2 |8  |  | 11 | 6 | 2 |  |  |  |  |  |  |  |
 |  [Однорал](https://github.com/M1aRS/programming_course_2_932503_odnoral)| 4| 3 | 2 |  3| 2 | 2 | . | 7 | 11 | **6** | **2** |**25**  |  |  |  |  |  |  |
-|  [Сабитова](https://github.com/EssanAp5113N/programming_course_2)|4| 3 |  2| 3 | 2 | 2 | 8 | 7 | 11| 6 | **2** | **20** |  |  |  |  |  |  |
+|  [Сабитова](https://github.com/EssanAp5113N/programming_course_2)|4| 3 |  2| 3 | 2 | 2 | 8 | 7 | 11| 6 | **2** | **20** |**6**|  |  |  |  |  |
 |  [Томин](https://github.com/etomin52/edgar932503)| 2| 3 | 2 | 3 | 2 | 2 |  | 7 | 11 | 6 | 2 |  |  |  |  |  |  |  |
 |  [Устинов](https://github.com/WarFly-07/programming_course_2)| 4|  3| 2 |  |  | 2 | 8 | 7 |  |  |  |  |  |  |  |  |  |  |
