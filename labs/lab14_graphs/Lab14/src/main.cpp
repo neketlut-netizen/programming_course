@@ -11,7 +11,7 @@ int main() {
 
     int RowMax=0;
     int ColMax = 0;
-    int N = 0;
+    int N = 0; //Длинна квадратной матрицы
     int* Row = new int[100];
     int* Col = new int[100];
     int count = 0;
@@ -55,11 +55,63 @@ int main() {
     }
     fclose(file);
     for (int i = 0; i < size; i++) delete[] matrix[i];
-    delete[] matrix;
-    delete[] Row;
-    delete[] Col;
-    //_____________________________________________________________________________________________________________________
-    FILE* FileOutput = fopen("output2.txt", "w");
+    delete[] matrix; delete[] Row; delete[] Col; count = 0; N = 0; RowMax = 0; ColMax = 0; size = 0;
+    //__________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    FILE* FileOutput = fopen("output2.txt", "w"); 
+    file = fopen("output1.txt", "r");
+    int MaxSize = 0;
+    size = -1;
 
+    while (fscanf(file, "%d", &MaxSize) == 1) {
+        if (MaxSize > size) size = MaxSize;
+    }
+
+    fclose(file);
+    file = fopen("output1.txt", "r");
+
+    matrix = new int* [size + 1];
+    for (int i = 0; i < size + 1; i++) {
+        matrix[i] = new int[size + 1];
+        for (int j = 0; j < size + 1; j++) {
+            fscanf(file, "%d", &matrix[i][j]);
+        }
+    }
+
+
+    for (int i = 1; i < size + 1; i++) {
+        for (int j = 1; j < size + 1; j++) {
+            if (matrix[i][j] == 1) {
+                fprintf(FileOutput, "%d ", j);
+            }
+        }
+        fprintf(FileOutput, "\n");
+    }
+
+    for (int i = 0; i < size; i++) delete[] matrix[i];
+    fclose(file); fclose(FileOutput); size = 0; MaxSize = 0;
+    //____________________________________________________________________________________________________________________________________
+    file = fopen("output2.txt", "r");
+    FileOutput = fopen("output3.txt", "w");
+    RowMax = 1; //номер тякущей строки
+    int neighbor;
+    char c;
+
+    while (fscanf(file, "%d", &neighbor) == 1) {
+        if (RowMax < neighbor) {
+            fprintf(FileOutput, "%d %d\n", RowMax, neighbor);
+        }
+        while (fscanf(file, "%c", &c) == 1) {
+            if (c == '\n') {
+                RowMax++;
+                break;
+            }
+            if (c != ' ' && c != '\r') {
+                ungetc(c, file);//вернуть обратно
+                break;
+            }
+        }
+    }
+
+    fclose(file); fclose(FileOutput);
     return 0;
 }
