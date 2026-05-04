@@ -2,6 +2,23 @@
 #include <iostream>
 #include <cstdio>
 
+int GlobalMatrix[10][10];
+int Memo[10];
+int countPaths(int u) {
+    if (u == 9) return 1;
+    if (Memo[u] != -1) return Memo[u];
+    int ways = 0;
+    for (int v = 0; v < 10; v++) {
+        if (GlobalMatrix[u][v] == 1) {
+            ways += countPaths(v);
+        }
+    }
+    return Memo[u] = ways;
+}
+
+
+
+
 int main() {
     // ================================================================================================================================================
     FILE* file = fopen("input.txt", "r");
@@ -52,8 +69,8 @@ int main() {
 
     // ___________________________________________________________________________________________________________________________________________________
     FILE* fileIn2 = fopen("output1.txt", "r");
-    
-    fscanf(fileIn2, "%d", &N); 
+     
+    fscanf(fileIn2, "%d", &N);
 
     matrix = new int* [N + 1];
     for (int i = 1; i <= N; i++) {
@@ -64,7 +81,7 @@ int main() {
     }
     fclose(fileIn2);
 
-    int* L = new int[N + 1]; // Кол-во инцидентных дуг с вершиной
+    int* L = new int[N + 1]; // Кол-во соседних вершин
     int* S = new int[N + 1]; // Индексы начала
     for (int j = 1; j <= N; j++) L[j] = 0;
 
@@ -112,9 +129,9 @@ int main() {
     FILE* fileIn3 = fopen("output2.txt", "r");
 
     fscanf(fileIn3, "%d %d", &N, &Edge);
-    for (int i = 1; i <= N; i++) fscanf(fileIn3, "%d", &L[i]);
-    for (int i = 1; i <= N; i++) fscanf(fileIn3, "%d", &S[i]);
-    for (int i = 0; i < Edge; i++) fscanf(fileIn3, "%d", &D[i]);
+    for (int i = 1; i <= N; i++) fscanf(fileIn3, "d", &L[i]);
+        for (int i = 1; i <= N; i++) fscanf(fileIn3, "d", &S[i]);
+        for (int i = 0; i < Edge; i++) fscanf(fileIn3, "%d", &D[i]);
     fclose(fileIn3);
 
     FILE* fileOut3 = fopen("output3.txt", "w");
@@ -129,5 +146,22 @@ int main() {
     }
     fclose(fileOut3);
     delete[] L; delete[] S; delete[] D;
+//___________________________________________________________________________________________________________________________________________________
+//___________________________________________________________________________________________________________________________________________________    
+//___________________________________________________________________________________________________________________________________________________
+    FILE* fileIn = fopen("input2.txt", "r");
+
+    for (int i = 0; i < 10; i++) {    
+        for (int j = 0; j < 10; j++) {
+            fscanf(fileIn, "%d", &GlobalMatrix[i][j]);
+        }
+        Memo[i] = -1;                   
+    }
+    fclose(fileIn);
+
+    FILE* fileOut = fopen("output4.txt", "w");
+    fprintf(fileOut, "%d\n", countPaths(0));
+    fclose(fileOut);
+
     return 0;
 }

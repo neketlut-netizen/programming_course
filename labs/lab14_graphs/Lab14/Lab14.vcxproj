@@ -73,9 +73,11 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="input.txt" />
+    <Text Include="input2.txt" />
     <Text Include="output1.txt" />
     <Text Include="output2.txt" />
     <Text Include="output3.txt" />
+    <Text Include="output4.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
