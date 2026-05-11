@@ -2,142 +2,150 @@
 #include <iostream>
 #include <cstdio>
 
-int main() {
-    // ================================================================================================================================================
-    FILE* file = fopen("input.txt", "r");
-    if (file == NULL) {
-        printf("ERROR with input.txt\n");
-        return 0;
-    }
+// Lab 14
 
-    int Edge;
-    int N; 
-    fscanf(file, "%d %d", &N, &Edge);
-    int* Row = new int[Edge];
-    int* Col = new int[Edge];
-    int count = 0;
-    
-    while (count < Edge && fscanf(file, "%d %d", &Row[count], &Col[count]) == 2) {
-        count++;
+void task_1() {
+    FILE* fin = fopen("input.txt", "r");
+    FILE* fout = fopen("output1.txt", "w");
+    if (!fin) {
+        printf("Error: input file read error. \n");
+        if (fout) fclose(fout);
+        return;
     }
-    fclose(file);
-
-    for (int i = 0; i < Edge; i++) {
-        if (Row[i] <= 0 or Col[i] <= 0) {
-            printf("Error in Input file, Vertex must be > 0");
-            file = fopen("output1.txt", "w"); fclose(file); file = fopen("output2.txt", "w");
-            fclose(file); file = fopen("output3.txt", "w"); fclose(file); return 0;
+    int n, m;
+    fscanf(fin, "%d%d", &n, &m);
+    int** matrix = new int* [n];
+    for (int i = 0; i < n; i++) {
+        matrix[i] = new int[n];
+        for (int j = 0; j < n; j++) {
+            matrix[i][j] = 0;
         }
     }
 
-    int size = N + 1;
-    int** matrix = new int* [size];
-    for (int i = 0; i < size; i++) {
-        matrix[i] = new int[size];
-        for (int j = 0; j < size; j++) matrix[i][j] = 0;
+    for (int k = 0; k < m; k++) {
+        int u, v;
+        fscanf(fin, "%d%d", &u, &v);
+        u--; v--;
+        matrix[u][v] = 1; matrix[v][u] = 1;
     }
 
-    
-        for (int i = 0; i < count; i++) {
-            if ((matrix[Row[i]][Col[i]] == 1) or (matrix[Col[i]][Row[i]] == 1)) {
-                printf("Error 2 Edge on 2 Vertex");
-                return 0;
-            }
-            matrix[Row[i]][Col[i]] = 1;
-            matrix[Col[i]][Row[i]] = 1;
+    fprintf(fout, "%d\n", n);
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            fprintf(fout, "%d ", matrix[i][j]);
         }
-
-    FILE* fileOut1 = fopen("output1.txt", "w");
-    fprintf(fileOut1, "%d %d\n", N, Edge);
-    for (int i = 1; i <= N; i++) {
-        for (int j = 1; j <= N; j++) {
-            fprintf(fileOut1, "%d ", matrix[i][j]);
-        }
-        fprintf(fileOut1, "\n");
+        fprintf(fout, "\n");
     }
-    fclose(fileOut1);
+    for (int i = 0; i < n; i++) delete[] matrix[i];
+    delete[] matrix;
 
-    for (int i = 0; i < size; i++) delete[] matrix[i];
-    delete[] matrix; delete[] Row; delete[] Col;
-
-
-    // ___________________________________________________________________________________________________________________________________________________
-    FILE* fileIn2 = fopen("output1.txt", "r");
-     
-    fscanf(fileIn2, "%d %d", &N, &Edge);
-
-    matrix = new int* [N + 1];
-    for (int i = 1; i <= N; i++) {
-        matrix[i] = new int[N + 1];
-        for (int j = 1; j <= N; j++) {
-            fscanf(fileIn2, "%d", &matrix[i][j]);
+    fclose(fin);
+    fclose(fout);
+}
+void task_2() {
+    FILE* fin = fopen("output1.txt", "r");
+    FILE* fout = fopen("output2.txt", "w");
+    if (!fin) {
+        printf("Error: output1 file read error. \n");
+        if (fout) fclose(fout);
+        return;
+    }
+    int n;
+    fscanf(fin, "%d", &n);
+    int** matrix = new int* [n];
+    for (int i = 0; i < n; i++) {
+        matrix[i] = new int[n];
+        for (int j = 0; j < n; j++) {
+            fscanf(fin, "%d", &matrix[i][j]);
         }
     }
-    fclose(fileIn2);
 
-    int* L = new int[N + 1]; // Кол-во соседних вершин
-    int* S = new int[N + 1]; // Индексы начала
-    for (int j = 1; j <= N; j++) L[j] = 0;
+    int* U = new int[n]; int* S = new int[n]; int* L = new int[n];
+    int D_size = 0;
 
-    
-    for (int i = 1; i <= N; i++) {
-        for (int j = 1; j <= N; j++) {
+    for (int j = 0; j < n; j++) L[j] = 0;
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
             if (matrix[i][j] == 1) {
                 L[i]++;
+                D_size++;
             }
         }
     }
 
-    S[1] = 0;
-    for (int j = 2; j <= N; j++) {
+    S[0] = 0;
+    for (int j = 1; j < n; j++) {
         S[j] = S[j - 1] + L[j - 1];
     }
 
-    int* D = new int[Edge*2];
-    int* U = new int[N + 1]; // Дополнительный массив, дублирующий индексы
-        for (int j = 1; j <= N; j++) U[j] = S[j];
+    for (int j = 0; j < n; j++) U[j] = S[j];
 
-        for (int i = 1; i <= N; i++) {
-            for (int j = 1; j <= N; j++) {
-                if (matrix[i][j] == 1) {
-                    D[U[i]] = j;
-                    U[i]++;
-                }
+    int* D = new int[D_size];
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (matrix[i][j] == 1) {
+                D[U[i]] = j;
+                U[i]++;
             }
         }
-
-    FILE* fileOut2 = fopen("output2.txt", "w");
-    fprintf(fileOut2, "%d %d\n", N, Edge);
-    for (int i = 1; i <= N; i++) fprintf(fileOut2, "%d ", L[i]); fprintf(fileOut2, "\n");
-    for (int i = 1; i <= N; i++) fprintf(fileOut2, "%d ", S[i]); fprintf(fileOut2, "\n");
-    for (int i = 0; i < Edge*2; i++) fprintf(fileOut2, "%d ", D[i]); fprintf(fileOut2, "\n");
-    fclose(fileOut2);
-
-    for (int i = 1; i <= N; i++) delete[] matrix[i];
-    delete[] matrix; delete[] U;
-
-
-    // ___________________________________________________________________________________________________________________________________________________
-    FILE* fileIn3 = fopen("output2.txt", "r");
-
-    fscanf(fileIn3, "%d %d", &N, &Edge);
-    for (int i = 1; i <= N; i++) fscanf(fileIn3, "%d", &L[i]);
-        for (int i = 1; i <= N; i++) fscanf(fileIn3, "%d", &S[i]);
-        for (int i = 0; i < Edge*2; i++) fscanf(fileIn3, "%d", &D[i]);
-    fclose(fileIn3);
-
-    FILE* fileOut3 = fopen("output3.txt", "w");
-
-    fprintf(fileOut3, "%d %d\n", N, Edge);
-    for (int i = 1; i <= N; i++) {
-            for (int k = S[i]; k < S[i] + L[i]; k++) {
-                int j = D[k];
-                if (i < j) {
-                    fprintf(fileOut3, "%d %d\n", i, j);
-                }
-            }
     }
-    fclose(fileOut3);
-    delete[] L; delete[] S; delete[] D;
+
+    fprintf(fout, "%d %d\n", n, D_size);
+    for (int i = 0; i < n; i++) fprintf(fout, "%d ", L[i]);
+    fprintf(fout, "\n");
+    
+    for (int i = 0; i < n; i++) fprintf(fout, "%d ", S[i]);
+    fprintf(fout, "\n");
+
+    for (int i = 0; i < D_size; i++) fprintf(fout, "%d ", D[i]);
+    fprintf(fout, "\n");
+
+    // Очистка памяти
+    for (int i = 0; i < n; i++) delete[] matrix[i];
+    delete[] matrix;
+    delete[] L; delete[] S; delete[] U; delete[] D;
+
+    fclose(fin);
+    fclose(fout);
+}
+void task_3() {
+    FILE* fin = fopen("output2.txt", "r");
+    FILE* fout = fopen("output3.txt", "w");
+    if (!fin) {
+        printf("Error: output2 file read error. \n");
+        if (fout) fclose(fout);
+        return;
+    }
+
+    int n, m_double;
+    fscanf(fin, "%d %d", &n, &m_double);
+    int* S = new int[n];
+    int* L = new int[n];
+    int* D = new int[m_double];
+
+
+    for (int i = 0; i < n; i++) fscanf(fin, "%d", &L[i]);
+    for (int i = 0; i < n; i++) fscanf(fin, "%d", &S[i]);
+    for (int i = 0; i < m_double; i++) fscanf(fin, "%d", &D[i]);
+    for (int i = 0; i < n; i++) {
+        for (int k = S[i]; k < S[i] + L[i]; k++) {
+            int j = D[k]; // смежная вершина
+
+            if (i <= j) {
+                fprintf(fout, "%d %d\n", i + 1, j + 1);
+            }
+        }
+    }
+    delete[] S; delete[] L; delete[] D;
+
+    fclose(fin);
+    fclose(fout);
+}
+
+int main() {
+    task_1();
+    task_2();
+    task_3();
     return 0;
 }
