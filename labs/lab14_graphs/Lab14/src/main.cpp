@@ -118,16 +118,16 @@ void task_3() {
         return;
     }
 
-    int n, m_double;
-    fscanf(fin, "%d %d", &n, &m_double);
+    int n, D_size;
+    fscanf(fin, "%d %d", &n, &D_size);
     int* S = new int[n];
     int* L = new int[n];
-    int* D = new int[m_double];
+    int* D = new int[D_size];
 
 
     for (int i = 0; i < n; i++) fscanf(fin, "%d", &L[i]);
     for (int i = 0; i < n; i++) fscanf(fin, "%d", &S[i]);
-    for (int i = 0; i < m_double; i++) fscanf(fin, "%d", &D[i]);
+    for (int i = 0; i < D_size; i++) fscanf(fin, "%d", &D[i]);
     for (int i = 0; i < n; i++) {
         for (int k = S[i]; k < S[i] + L[i]; k++) {
             int j = D[k]; // смежная вершина
