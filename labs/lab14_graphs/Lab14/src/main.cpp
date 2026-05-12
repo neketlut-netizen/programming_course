@@ -25,6 +25,14 @@ void task_1() {
     for (int k = 0; k < m; k++) {
         int u, v;
         fscanf(fin, "%d%d", &u, &v);
+        if (u < 1 || v < 1 || u > n || v > n) {
+            printf("Error in Input.txt, Vertex must be between 1 and %d\n", n); 
+            for (int i = 0; i < n; i++) delete[] matrix[i];
+            delete[] matrix;
+            fclose(fin); fclose(fout); 
+            fin = fopen("output2.txt", "w"); fout = fopen("output3.txt", "w"); fclose(fin); fclose(fout);
+            return;
+        }
         u--; v--;
         matrix[u][v] = 1; matrix[v][u] = 1;
     }
@@ -130,7 +138,7 @@ void task_3() {
     for (int i = 0; i < D_size; i++) fscanf(fin, "%d", &D[i]);
     for (int i = 0; i < n; i++) {
         for (int k = S[i]; k < S[i] + L[i]; k++) {
-            int j = D[k]; // смежная вершина
+            int j = D[k];
 
             if (i <= j) {
                 fprintf(fout, "%d %d\n", i + 1, j + 1);
