@@ -4,7 +4,7 @@
 | [Асташова](https://github.com/astashira/programming_course_2)|  |  3| 2 |  |  |  2| . |  7| 11 | .  | **2** | **25** |  **6**|  |  |  |  |  |
 | Еркин|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
 | [Зырянов](https://github.com/skroolll/programming_course_2)|  | 3 | 2 | 3 | 2| 2 | 8 |7 | 11 | 6 | 2 |  |**6**  |  |  |  |  |  |
-| [Ильин](https://github.com/ilin932503/programming_course_2_ilin932503)| |  | 2 |  |  | 2 |  | 7 |  | 6 | 2 |  | **6** |  |  |  |  |  |
+| [Ильин](https://github.com/ilin932503/programming_course_2_ilin932503)| |  | 2 |  |  | 2 |  | 7 |  | 6 | 2 |  | **6** |  |  |  | **20** |  |
 |[Карташов](https://github.com/Joziazf/programming_course_2)|4 | 3 | 2 |3  | 2 |2  |  | 7 | 11 |  **6**| **2** | **30** | **6** |  |  |  | |  |
 |  [Коджебаш](https://github.com/mrbellskiy57/programming_course_2)| 2| 3 | 2 |  |  | 2 |.  | 7 | . | . | **2** |  |  **6**|  |  |  | **0**  |  |
 |  [Левичев](https://github.com/MynameMumba/programming_course_2)| | 3 |2  | 3 | 2 | 2 | . | 7| 11 | **6**| **2** | **15** | **5**| **8** |  |  |  |  |
